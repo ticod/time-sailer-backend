@@ -4,18 +4,22 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Getter
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Integer id;
+    private Long id;
 
     @Column(name = "email", nullable = false, length = 100)
     private String email;
@@ -36,7 +40,7 @@ public class User {
     private LocalDate createdAt;
 
     @Builder
-    public User(Integer id, String email, String name, String password, String passwordSalt, String refreshToken, LocalDate createdAt) {
+    public User(Long id, String email, String name, String password, String passwordSalt, String refreshToken, LocalDate createdAt) {
         this.id = id;
         this.email = email;
         this.name = name;
@@ -44,5 +48,41 @@ public class User {
         this.passwordSalt = passwordSalt;
         this.refreshToken = refreshToken;
         this.createdAt = createdAt;
+    }
+
+    // UserDetails methods
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public String getUsername() {
+        return this.name;
+    }
+
+    @Override
+    public String getPassword() {
+        return this.password;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
