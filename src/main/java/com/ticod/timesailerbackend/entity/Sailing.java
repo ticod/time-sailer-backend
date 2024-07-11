@@ -1,6 +1,7 @@
 package com.ticod.timesailerbackend.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,8 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "sailing")
@@ -15,7 +18,7 @@ public class Sailing {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Integer id;
+    private Long id;
 
     @Column(name = "sailing_uuid", nullable = false, length = 16, columnDefinition = "binary(16)")
     private String sailingUuid;
@@ -38,16 +41,4 @@ public class Sailing {
 
     @Column(name = "created_at", nullable = false)
     private LocalDate createdAt;
-
-    @Builder
-    public Sailing(Integer id, String sailingUuid, String title, LocalDate startDate, LocalDate dueDate, Boolean isShareable, User users, LocalDate createdAt) {
-        this.id = id;
-        this.sailingUuid = sailingUuid;
-        this.title = title;
-        this.startDate = startDate;
-        this.dueDate = dueDate;
-        this.isShareable = isShareable;
-        this.users = users;
-        this.createdAt = createdAt;
-    }
 }

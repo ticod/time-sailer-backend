@@ -1,11 +1,14 @@
 package com.ticod.timesailerbackend.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "users_sailing",
@@ -16,7 +19,7 @@ public class UserSailing {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Integer id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "users_id", nullable = false, referencedColumnName = "id")
@@ -25,11 +28,4 @@ public class UserSailing {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "sailing_id", nullable = false)
     private Sailing sailing;
-
-    @Builder
-    public UserSailing(Integer id, User users, Sailing sailing) {
-        this.id = id;
-        this.users = users;
-        this.sailing = sailing;
-    }
 }

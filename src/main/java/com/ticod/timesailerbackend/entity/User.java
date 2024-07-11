@@ -1,6 +1,7 @@
 package com.ticod.timesailerbackend.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
@@ -38,17 +41,6 @@ public class User implements UserDetails {
 
     @Column(name = "created_at", nullable = false)
     private LocalDate createdAt;
-
-    @Builder
-    public User(Long id, String email, String name, String password, String passwordSalt, String refreshToken, LocalDate createdAt) {
-        this.id = id;
-        this.email = email;
-        this.name = name;
-        this.password = password;
-        this.passwordSalt = passwordSalt;
-        this.refreshToken = refreshToken;
-        this.createdAt = createdAt;
-    }
 
     // UserDetails methods
     @Override
