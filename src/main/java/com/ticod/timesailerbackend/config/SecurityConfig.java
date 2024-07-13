@@ -29,14 +29,12 @@ public class SecurityConfig {
                 .sessionManagement(sessionManagementConfigurer ->
                         sessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .authorizeHttpRequests(authorizeRequests -> {
-                    authorizeRequests
-                            // Swagger
-                            .requestMatchers("/swagger-ui/**", "/v3/**").permitAll()
-                            // 회원가입
-                            .requestMatchers(HttpMethod.POST, "/api/v1/users").permitAll()
-                            .anyRequest().authenticated();
-                })
+                .authorizeHttpRequests(authorizeRequests -> authorizeRequests
+                        // Swagger
+                        .requestMatchers("/swagger-ui/**", "/v3/**").permitAll()
+                        // 회원가입
+                        .requestMatchers(HttpMethod.POST, "/api/v1/users").permitAll()
+                        .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
