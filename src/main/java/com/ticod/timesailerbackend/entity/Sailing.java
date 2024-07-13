@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Getter
 @Builder
@@ -21,7 +22,7 @@ public class Sailing {
     private Long id;
 
     @Column(name = "sailing_uuid", nullable = false, length = 16, columnDefinition = "binary(16)")
-    private String sailingUuid;
+    private UUID sailingUuid;
 
     @Column(name = "title", nullable = false, length = 100)
     private String title;
